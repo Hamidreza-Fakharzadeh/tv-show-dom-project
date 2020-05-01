@@ -21,12 +21,18 @@ function makePageForEpisodes(episodeList) {
     searchElem.name = 'search';
 
     //BUTTON SEARCH OF FORM
-    const btnSearch = document.createElement('button');
-    formElem.appendChild(btnSearch);
-    btnSearch.type = 'submit';
-    const btnIcon = document.createElement('i');
-    btnSearch.appendChild(btnIcon);
-    btnIcon.classList.add('fa');
+    // const btnSearch = document.createElement('button');
+    // formElem.appendChild(btnSearch);
+    // btnSearch.type = 'submit';
+    // const btnIcon = document.createElement('i');
+    // btnSearch.appendChild(btnIcon);
+    // btnIcon.classList.add('fa');
+
+    //DISPLAY NUMBER OF SEARCH EXISTE
+    const showingEpiNum = document.createElement("div");
+    formElem.appendChild(showingEpiNum);
+    const h1ShowingEpiNum = document.createElement("h1");
+    showingEpiNum.appendChild(h1ShowingEpiNum);
 
     //CONTAINER
     const containerElm = document.getElementById('divContainer');
@@ -65,17 +71,29 @@ function makePageForEpisodes(episodeList) {
         summaryElem = peice.replace('</p>', ' ');
         paragraphElem.textContent = summaryElem;
     }
+    let numEpi = episodeList.length
+    console.log(numEpi)
+    h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
     searchElem.addEventListener('keyup', function(e) {
         const term = e.target.value.toUpperCase();
-        console.log(term);
         const movies = document.getElementsByClassName('column');
+        let arrSearch = [];
         Array.from(movies).forEach(function(movie) {
             let titel = movie.firstElementChild.textContent;
             if (titel.toUpperCase().indexOf(term) != -1) {
+                arrSearch.push(titel);
+                let lenthSearch = arrSearch.length;
                 movie.style.display = 'block';
-            } else {
+                h1ShowingEpiNum.textContent = lenthSearch + "/" + " " + numEpi + " " + "Episodes"
+
+
+            }
+            // if (titel.toUpperCase().indexOf(term) == -1) {
+            //     h1ShowingEpiNum.textContent = "0" + "/" + " " + numEpi + " " + "Episodes"
+            else {
                 movie.style.display = 'none';
             }
+
         });
     });
 }
