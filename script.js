@@ -13,6 +13,10 @@ function makePageForEpisodes(episodeList) {
     formElem.classList.add('divContainerClass');
     formElem.action = '';
 
+    //SELECT LIST
+    const selectElem = document.createElement("select");
+    formElem.appendChild(selectElem);
+
     //INPUT OF FORM
     const searchElem = document.createElement('input');
     formElem.appendChild(searchElem);
@@ -40,9 +44,8 @@ function makePageForEpisodes(episodeList) {
     containerElm.classList.add('divContainerClass');
 
     var arrTitel = [];
-    //console.log(arrTitel);
-    //COLUMN OF ELEMENT
 
+    //DISPLAY MOVIES
     for (let i = 0; i < episodeList.length; i++) {
         let divElem = document.createElement('div');
         divElem.classList.add('column');
@@ -71,10 +74,8 @@ function makePageForEpisodes(episodeList) {
         summaryElem = peice.replace('</p>', ' ');
         paragraphElem.textContent = summaryElem;
     }
-    let numEpi = episodeList.length
-    console.log(numEpi)
-    h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
-    searchElem.addEventListener('keyup', function(e) {
+    //CALL BACK FUNCTION SELLECT MOVIE
+    function selectMovie(e) {
         const term = e.target.value.toUpperCase();
         const movies = document.getElementsByClassName('column');
         let arrSearch = [];
@@ -89,8 +90,31 @@ function makePageForEpisodes(episodeList) {
                 movie.style.display = 'none';
             }
 
-        });
-    });
+        })
+    }
+    //SEARCH EVENT LISTENER AND NUMBER OF MOVIES TO SHOW
+    let numEpi = episodeList.length
+    h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
+    searchElem.addEventListener('keyup', selectMovie);
+
+    //SELCTCT EVENT LISTENER
+    selectElem.addEventListener('click', selectMovie)
+
+    //DISPLAY SELECT LIST
+    for (let i = 0; i < episodeList.length; i++) {
+        let optionElm = document.createElement('option');
+        selectElem.appendChild(optionElm);
+        optionElm.innerText = 'S0' +
+            episodeList[i].season +
+            'E0' +
+            episodeList[i].number +
+            ' ' + '-' + ' ' +
+            episodeList[i].name
+
+    }
+
+
+
 }
 
 window.onload = setup
