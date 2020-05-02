@@ -29,10 +29,10 @@ function makePageForEpisodes(episodeList) {
     // btnIcon.classList.add('fa');
 
     //DISPLAY NUMBER OF SEARCH EXISTE
-    const showingEpiNum = document.createElement("div");
-    formElem.appendChild(showingEpiNum);
-    const h1ShowingEpiNum = document.createElement("h1");
-    showingEpiNum.appendChild(h1ShowingEpiNum);
+    //const showingEpiNum = document.createElement("div");
+    //formElem.appendChild(showingEpiNum);
+    const h1ShowingEpiNum = document.createElement("h3");
+    formElem.appendChild(h1ShowingEpiNum);
 
     //CONTAINER
     const containerElm = document.getElementById('divContainer');
@@ -84,13 +84,8 @@ function makePageForEpisodes(episodeList) {
                 arrSearch.push(titel);
                 let lenthSearch = arrSearch.length;
                 movie.style.display = 'block';
-                h1ShowingEpiNum.textContent = lenthSearch + "/" + " " + numEpi + " " + "Episodes"
-
-
-            }
-            // if (titel.toUpperCase().indexOf(term) == -1) {
-            //     h1ShowingEpiNum.textContent = "0" + "/" + " " + numEpi + " " + "Episodes"
-            else {
+                h1ShowingEpiNum.textContent = lenthSearch + " " + "/" + " " + numEpi + " " + "Episodes"
+            } else {
                 movie.style.display = 'none';
             }
 

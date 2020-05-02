@@ -10,6 +10,14 @@
     justify-content: center;
 }
 
+input {
+    align-self: center;
+}
+
+form {
+    margin-top: 30px;
+}
+
 .column {
     text-align: center;
     background-color: rgb(54, 52, 52);
@@ -21,7 +29,7 @@
     box-shadow: 5px 5px 10px rgb(49, 48, 48);
 }
 
-h1 {
+.column>h1 {
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     padding: 5px 10px;
     color: rgb(12, 12, 12);
