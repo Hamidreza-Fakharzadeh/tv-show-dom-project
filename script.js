@@ -98,7 +98,7 @@ function makePageForEpisodes(episodeList) {
     searchElem.addEventListener('keyup', selectMovie);
 
     //SELCTCT EVENT LISTENER
-    selectElem.addEventListener('click', selectMovie)
+
 
     //DISPLAY SELECT LIST
     for (let i = 0; i < episodeList.length; i++) {
@@ -109,7 +109,7 @@ function makePageForEpisodes(episodeList) {
             'E0' +
             episodeList[i].number +
             ' ' + '-' + ' ' +
-            episodeList[i].name
+            episodeList[i].name;
 
     }
 
