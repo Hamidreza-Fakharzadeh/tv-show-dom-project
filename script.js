@@ -24,17 +24,7 @@ function makePageForEpisodes(episodeList) {
     searchElem.type = 'text';
     searchElem.name = 'search';
 
-    //BUTTON SEARCH OF FORM
-    // const btnSearch = document.createElement('button');
-    // formElem.appendChild(btnSearch);
-    // btnSearch.type = 'submit';
-    // const btnIcon = document.createElement('i');
-    // btnSearch.appendChild(btnIcon);
-    // btnIcon.classList.add('fa');
 
-    //DISPLAY NUMBER OF SEARCH EXISTE
-    //const showingEpiNum = document.createElement("div");
-    //formElem.appendChild(showingEpiNum);
     const h1ShowingEpiNum = document.createElement("h3");
     formElem.appendChild(h1ShowingEpiNum);
 
@@ -74,9 +64,10 @@ function makePageForEpisodes(episodeList) {
         summaryElem = peice.replace('</p>', ' ');
         paragraphElem.textContent = summaryElem;
     }
+    var term;
     //CALL BACK FUNCTION SELLECT MOVIE
     function selectMovie(e) {
-        const term = e.target.value.toUpperCase();
+        term = e.target.value.toUpperCase();
         const movies = document.getElementsByClassName('column');
         let arrSearch = [];
         Array.from(movies).forEach(function(movie) {
@@ -112,8 +103,8 @@ function makePageForEpisodes(episodeList) {
             episodeList[i].name;
 
     }
-
-
+    let getElemOption = document.getElementsByTagName("option")[3];
+    console.log(getElemOption)
 
 }
 
