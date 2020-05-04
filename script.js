@@ -19,6 +19,7 @@ function makePageForEpisodes(episodeList) {
 
     //INPUT OF FORM
     const searchElem = document.createElement('input');
+    searchElem.setAttribute("id", "searchField");
     formElem.appendChild(searchElem);
     searchElem.placeholder = 'Search...';
     searchElem.type = 'text';
@@ -64,10 +65,13 @@ function makePageForEpisodes(episodeList) {
         summaryElem = peice.replace('</p>', ' ');
         paragraphElem.textContent = summaryElem;
     }
-    var term;
+
     //CALL BACK FUNCTION SELLECT MOVIE
     function selectMovie(e) {
-        term = e.target.value.toUpperCase();
+
+        let term = e.target.value.toUpperCase();
+        console.log(term)
+        console.log(searchElem.value);
         const movies = document.getElementsByClassName('column');
         let arrSearch = [];
         Array.from(movies).forEach(function(movie) {
@@ -86,7 +90,7 @@ function makePageForEpisodes(episodeList) {
     //SEARCH EVENT LISTENER AND NUMBER OF MOVIES TO SHOW
     let numEpi = episodeList.length
     h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
-    searchElem.addEventListener('keyup', selectMovie);
+    searchElem.addEventListener('input', selectMovie);
 
     //SELCTCT EVENT LISTENER
 
@@ -103,8 +107,6 @@ function makePageForEpisodes(episodeList) {
             episodeList[i].name;
 
     }
-    let getElemOption = document.getElementsByTagName("option")[3];
-    console.log(getElemOption)
 
 }
 
