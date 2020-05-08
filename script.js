@@ -110,4 +110,4 @@ function makePageForEpisodes(episodeList) {
 
 }
 
-window.onload = setup
+window.onload = setup()
