@@ -26,8 +26,12 @@ function makePageForEpisodes(episodeList) {
     searchElem.name = 'search';
 
 
+
     const h1ShowingEpiNum = document.createElement("h3");
     formElem.appendChild(h1ShowingEpiNum);
+    let numEpi = episodeList.length
+    h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
+
 
     //CONTAINER
     const containerElm = document.getElementById('divContainer');
@@ -67,6 +71,8 @@ function makePageForEpisodes(episodeList) {
     }
 
     //CALL BACK FUNCTION SELLECT MOVIE
+    searchElem.addEventListener('input', selectMovie);
+
     function selectMovie(e) {
 
         let term = e.target.value.toUpperCase();
@@ -85,13 +91,6 @@ function makePageForEpisodes(episodeList) {
 
         })
     }
-    //SEARCH EVENT LISTENER AND NUMBER OF MOVIES TO SHOW
-    let numEpi = episodeList.length
-    h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
-    searchElem.addEventListener('input', selectMovie);
-
-    //SELCTCT EVENT LISTENER
-
 
     //DISPLAY SELECT LIST
     for (let i = 0; i < episodeList.length; i++) {
@@ -103,6 +102,26 @@ function makePageForEpisodes(episodeList) {
             episodeList[i].number +
             ' ' + '-' + ' ' +
             episodeList[i].name;
+
+    }
+    selectElem.addEventListener("click", listDropDownHandler);
+
+    function listDropDownHandler(e) {
+        let listHandelerTarget = e.target.value;
+        console.log(listHandelerTarget)
+        let strListSlice = listHandelerTarget.slice(0, 6);
+        console.log(strListSlice)
+        let moviesList = document.getElementsByClassName('column');
+        Array.from(moviesList).forEach(movieElem => {
+
+            let titelList = movieElem.firstElementChild.textContent;
+            console.log(titelList)
+            if (titelList.indexOf(strListSlice) != -1) {
+                movieElem.style.display = "block";
+            } else {
+                movieElem.style.display = "none"
+            }
+        })
 
     }
 
