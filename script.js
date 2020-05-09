@@ -70,11 +70,9 @@ function makePageForEpisodes(episodeList) {
     function selectMovie(e) {
 
         let term = e.target.value.toUpperCase();
-        console.log(term)
-        console.log(searchElem.value);
         const movies = document.getElementsByClassName('column');
         let arrSearch = [];
-        Array.from(movies).forEach(function(movie) {
+        Array.from(movies).forEach(movie => {
             let titel = movie.firstElementChild.textContent;
             if (titel.toUpperCase().indexOf(term) != -1) {
                 arrSearch.push(titel);
