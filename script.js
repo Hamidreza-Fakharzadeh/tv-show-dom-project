@@ -1,131 +1,170 @@
+const cardCtn = document.getElementById('optionCtn');
+const searchBox = document.getElementById('inputTag');
+
 function setup() {
-    const allEpisodes = getAllEpisodes();
-    console.log(getAllEpisodes())
-    makePageForEpisodes(allEpisodes);
+    //const allEpisodes = getAllEpisodes();
+    //makePageForEpisodes(allEpisodes);
+    //search(allEpisodes);
+    //selectBox(allEpisodes);
+}
+
+function search(allMovies) {
+    searchBox.addEventListener('input', () => {
+        //let inputValue = e.target.value.toLowerCase();
+        let searchInput = searchBox.value;
+        let getSearch = allMovies.filter(movie =>
+            movie.name.toLowerCase().indexOf(searchInput) != -1 ||
+            movie.summary.toLowerCase().indexOf(searchInput) != -1 ?
+            true :
+            false
+        );
+        makePageForEpisodes(getSearch);
+    });
+}
+
+function selectBox(moviesAll) {
+    let selectBoxShow = document.getElementById('selectTag2');
+    selectBoxShow.innerHTML = `<option>All shows</option>`;
+    moviesAll.forEach(
+        movie =>
+        (selectBoxShow.innerHTML += `<option>${cardHeader(movie)}</option>`)
+    );
+    selectBoxShow.addEventListener('click', () => {
+        let objSelect = moviesAll.filter(movie =>
+            selectBoxShow.value.indexOf(movie.name) != -1 ? true : false
+        );
+        makePageForEpisodes(objSelect);
+    });
 }
 
 function makePageForEpisodes(episodeList) {
-    const rootElem = document.getElementById('root');
-    //rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-
-    //FORM ELEMENT
-    const formElem = document.createElement('form');
-    rootElem.appendChild(formElem);
-    formElem.classList.add('divContainerClass');
-    formElem.action = '';
-
-    //SELECT LIST
-    const selectElem = document.createElement("select");
-    formElem.appendChild(selectElem);
-
-    //INPUT OF FORM
-    const searchElem = document.createElement('input');
-    searchElem.setAttribute("id", "searchField");
-    formElem.appendChild(searchElem);
-    searchElem.placeholder = 'Search...';
-    searchElem.type = 'text';
-    searchElem.name = 'search';
-
-
-
-    const h1ShowingEpiNum = document.createElement("h3");
-    formElem.appendChild(h1ShowingEpiNum);
-    let numEpi = episodeList.length
-    h1ShowingEpiNum.innerHTML = numEpi + "/" + " " + numEpi + " " + "Episodes"
-
-
-    //CONTAINER
-    const containerElm = document.getElementById('divContainer');
-    rootElem.appendChild(containerElm);
-    containerElm.classList.add('divContainerClass');
-
-    var arrTitel = [];
-
-    //DISPLAY MOVIES
-    for (let i = 0; i < episodeList.length; i++) {
-        let divElem = document.createElement('div');
-        divElem.classList.add('column');
-        containerElm.appendChild(divElem);
-        let h1Elem = document.createElement('h1');
-        let h1Append = divElem.appendChild(h1Elem);
-        let imgElem = document.createElement('img');
-        let imgAppend = divElem.appendChild(imgElem);
-        let paragraphElem = document.createElement('p');
-        let paragraphAppend = divElem.appendChild(paragraphElem);
-        h1Elem.textContent =
-            episodeList[i].name +
-            ' ' +
-            '-' +
-            ' ' +
-            'S0' +
-            episodeList[i].season +
-            'E0' +
-            episodeList[i].number;
-        arrTitel.push(h1Elem.textContent);
-
-        imgElem.src = episodeList[i].image.medium;
-
-        let eleSummary = episodeList[i].summary;
-        let peice = eleSummary.replace('<p>', ' ');
-        summaryElem = peice.replace('</p>', ' ');
-        paragraphElem.textContent = summaryElem;
-    }
-
-    //CALL BACK FUNCTION SELLECT MOVIE
-    searchElem.addEventListener('input', selectMovie);
-
-    function selectMovie(e) {
-
-        let term = e.target.value.toUpperCase();
-        const movies = document.getElementsByClassName('column');
-        let arrSearch = [];
-        Array.from(movies).forEach(movie => {
-            let titel = movie.firstElementChild.textContent;
-            if (titel.toUpperCase().indexOf(term) != -1) {
-                arrSearch.push(titel);
-                let lenthSearch = arrSearch.length;
-                movie.style.display = 'block';
-                h1ShowingEpiNum.textContent = lenthSearch + " " + "/" + " " + numEpi + " " + "Episodes"
-            } else {
-                movie.style.display = 'none';
-            }
-
-        })
-    }
-
-    //DISPLAY SELECT LIST
-    for (let i = 0; i < episodeList.length; i++) {
-        let optionElm = document.createElement('option');
-        selectElem.appendChild(optionElm);
-        optionElm.innerText = 'S0' +
-            episodeList[i].season +
-            'E0' +
-            episodeList[i].number +
-            ' ' + '-' + ' ' +
-            episodeList[i].name;
-
-    }
-    selectElem.addEventListener("click", listDropDownHandler);
-
-    function listDropDownHandler(e) {
-        let listHandelerTarget = e.target.value;
-        console.log(listHandelerTarget)
-        let strListSlice = listHandelerTarget.slice(0, 6);
-        console.log(strListSlice)
-        let moviesList = document.getElementsByClassName('column');
-        Array.from(moviesList).forEach(movieElem => {
-
-            let titelList = movieElem.firstElementChild.textContent;
-            console.log(titelList)
-            if (titelList.indexOf(strListSlice) != -1) {
-                movieElem.style.display = "block";
-            } else {
-                movieElem.style.display = "none"
-            }
-        })
-
-    }
-
+    cardCtn.innerHTML = '';
+    episodeList.forEach(episode => {
+        cardCtn.innerHTML += `
+    <div class = "cardClass">
+       <h1>${cardHeader(episode)}</h1>
+       <img src ="${episode.image.medium}"/>
+       <p> ${episode.summary}</p>
+    </div>`;
+    });
 }
 
-window.onload = setup()
+function cardHeader(episode) {
+    let name = episode.name;
+    let numSeason = episode.season;
+    if (numSeason < 10) {
+        numSeason = '0' + numSeason;
+    }
+    let numEpisode = episode.number;
+    if (numEpisode < 10) {
+        numEpisode = '0' + numEpisode;
+    }
+    return 'S' + numSeason + 'E' + numEpisode + ' ' + name;
+}
+
+fetch('https://api.tvmaze.com/shows/82/episodes')
+    .then(response => response.json())
+    .then(dataJson => {
+        makePageForEpisodes(dataJson);
+        search(dataJson);
+        selectBox(dataJson);
+    });
+
+//     const rootElem = document.getElementById('root');
+//     //rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+
+//     //LIST ELEMENT
+//     function listEpisodes() {
+//         const selectTag2 = document.getElementById('selectTag2');
+//         for (let i = 0; i < episodeList.length; i++) {
+//             let optionElm = document.createElement('option');
+//             selectTag2.appendChild(optionElm);
+//             optionElm.innerText =
+//                 'S0' +
+//                 episodeList[i].season +
+//                 'E0' +
+//                 episodeList[i].number +
+//                 ' ' +
+//                 '-' +
+//                 ' ' +
+//                 episodeList[i].name;
+//         }
+//     }
+//     listEpisodes();
+
+//     //DISPLY NUMBER OF MOVIES LABLE
+//     function displyNumberOfMovies() {
+//         let numApi = episodeList.length;
+//         const lableTag = document.getElementById('lableTag');
+//         lableTag.innerHTML = numApi + '/' + ' ' + numApi + ' ' + 'Episodes';
+//     }
+//     displyNumberOfMovies();
+
+//     //SEARCH ELEMENT
+//     // function searchEpisode() {
+//     //     const inputTag = document.getElementById('inputTag');
+//     // }
+//     //DISPLAY MOVIES
+//     function displayMovies() {
+//         const optionCtn = document.getElementById('optionCtn');
+//         for (let i = 0; i < episodeList.length; i++) {
+//             let divElem = document.createElement('div');
+//             divElem.className = 'col-12 sm-col-12 md-col-6 lg-col-4 xl-col-4';
+//             optionCtn.appendChild(divElem);
+//             const cardFrame = document.createElement('div');
+//             divElem.appendChild(cardFrame);
+//             cardFrame.className = 'eachCard';
+//             let h1Elem = document.createElement('h1');
+//             let h1Append = cardFrame.appendChild(h1Elem);
+//             h1Elem.className = 'h1Class';
+//             let imgElem = document.createElement('img');
+//             let imgAppend = cardFrame.appendChild(imgElem);
+//             let paragraphElem = document.createElement('p');
+//             let paragraphAppend = cardFrame.appendChild(paragraphElem);
+//             h1Elem.textContent =
+//                 episodeList[i].name +
+//                 ' ' +
+//                 '-' +
+//                 ' ' +
+//                 'S0' +
+//                 episodeList[i].season +
+//                 'E0' +
+//                 episodeList[i].number;
+
+//             imgElem.src = episodeList[i].image.medium;
+
+//             let eleSummary = episodeList[i].summary;
+//             let peice = eleSummary.replace('<p>', ' ');
+//             summaryElem = peice.replace('</p>', ' ');
+//             paragraphElem.textContent = summaryElem;
+//         }
+//     }
+//     displayMovies();
+
+//     function clickMovie(e) {
+//         let term = e.target.value.toUpperCase();
+//         let lableSearch = document.getElementById('lableTag');
+//         const movies = document.getElementsByClassName('eachCard');
+//         let arrSearch = [];
+//         Array.from(movies).forEach(function(movie) {
+//             let titel = movie.firstElementChild.textContent;
+//             if (titel.toUpperCase().indexOf(term) != -1) {
+//                 arrSearch.push(titel);
+//                 let lenthSearch = arrSearch.length;
+//                 movie.style.display = 'block';
+//                 lableSearch.value =
+//                     lenthSearch + ' ' + '/' + ' ' + numEpi + ' ' + 'Episodes';
+//             } else {
+//                 movie.style.display = 'none';
+//             }
+//         });
+//     }
+
+//     function inputListenerCall() {
+//         let getNodInput = document.getElementById('inputTag');
+//         getNodInput.addEventListener('keyup', clickMovie);
+//     }
+//     inputListenerCall();
+// }
+
+window.onload = setup();

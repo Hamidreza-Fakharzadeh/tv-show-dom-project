@@ -1,24 +1,62 @@
 #root {
-    /*color: red;*/
+    display: grid;
+    background-color: #7985b6;
+}
+
+.navClass {
+    background-color: #f1f2f6;
+    color: #535c68;
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    z-index: 1;
+    top: 0px;
 }
 
-.divContainerClass {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.select {
+    height: 40px;
+    padding: 10px;
+    margin: 20px 10px 10px 10px;
+    border-radius: 1px;
+    font-size: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 
-input {
-    align-self: center;
+.inputClass {
+    height: 27px;
+    padding: 5px;
+    margin: 20px 10px 10px 10px;
+    border-radius: 1px;
+    font-size: 20px;
+    color: #535c68;
 }
 
-form {
+.searchLabel {
+    padding: 10px;
+    margin: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 1em;
+    color: #535c68;
+    border: solid;
+}
+
+.eachCard {
     margin-top: 30px;
+    text-align: center;
+    background-color: rgb(54, 52, 52);
+    color: white;
+    height: 450px;
+    box-shadow: 5px 5px 10px rgb(49, 48, 48);
 }
 
-.column {
+.h1Class {
+    font-size: 17px;
+}
+
+.eachCard img {
+    width: 100%;
+}
+
+.cardClass {
     text-align: center;
     background-color: rgb(54, 52, 52);
     color: white;
@@ -29,13 +67,15 @@ form {
     box-shadow: 5px 5px 10px rgb(49, 48, 48);
 }
 
-.column>h1 {
+.optionCtnClass {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cardClass>h1 {
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     padding: 5px 10px;
     color: rgb(12, 12, 12);
     font-size: 1em;
     background-color: tomato;
 }
-
-
-/*grid*/

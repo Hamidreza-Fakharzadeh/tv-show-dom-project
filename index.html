@@ -5,18 +5,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | Hamidreza (My GitHub Hamidreza-Fakharzadeh)</title>
+    <link href="grid.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body>
-    <div id="root">
-        <div id="divContainer" class="container"></div>
-        <!--  <form action="">
-            <input id="inSearch" type="text" placeholder="Search.." name="search" />
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form> -->
+    <div id="root" class="container">
+        <nav id="navTag" class="navClass row">
+            <select id="selectTag1" class="select xl-col-2 lg-col-2 md-col-3 sm-col-4 col-10"></select>
+            <select id="selectTag2" class="select xl-col-2 lg-col-2 md-col-3 sm-col-4 col-10"></select>
+            <input id="inputTag" placeholder="Search..." type="text" name="search" class="inputClass xl-col-2 lg-col-2 md-col-3 sm-col-3 col-10" />
+            <label id="lableTag" class="searchLabel xl-col-4 lg-col-5 md-col-6 sm-col-7 col-12"></label>
+        </nav>
+        <div id="optionCtn" class="optionCtnClass row"></div>
     </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
