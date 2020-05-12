@@ -37,14 +37,18 @@ function selectBox(moviesAll) {
     });
 }
 
+function removeTag() {}
+
 function makePageForEpisodes(episodeList) {
     cardCtn.innerHTML = '';
     episodeList.forEach(episode => {
         cardCtn.innerHTML += `
-    <div class = "cardClass">
+    <div class ="xl-col-3 lg-col-3 md-col-6 sm-col-12">
+      <div class ="cardClass">
        <h1>${cardHeader(episode)}</h1>
        <img src ="${episode.image.medium}"/>
-       <p> ${episode.summary}</p>
+       <p>${episode.summary}</p>
+       </div>
     </div>`;
     });
 }
@@ -61,7 +65,7 @@ function cardHeader(episode) {
     }
     return 'S' + numSeason + 'E' + numEpisode + ' ' + name;
 }
-
+let idShow = 82;
 fetch('https://api.tvmaze.com/shows/82/episodes')
     .then(response => response.json())
     .then(dataJson => {

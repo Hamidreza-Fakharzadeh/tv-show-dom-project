@@ -1,6 +1,5 @@
 #root {
-    display: grid;
-    background-color: #7985b6;
+    background-color: rgb(39, 34, 34);
 }
 
 .navClass {
@@ -52,7 +51,7 @@
     font-size: 17px;
 }
 
-.eachCard img {
+img {
     width: 100%;
 }
 
@@ -60,16 +59,8 @@
     text-align: center;
     background-color: rgb(54, 52, 52);
     color: white;
-    width: 300px;
-    height: 500px;
-    margin: 20px;
-    padding: 0 15px;
+    height: 450px;
     box-shadow: 5px 5px 10px rgb(49, 48, 48);
-}
-
-.optionCtnClass {
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .cardClass>h1 {
@@ -78,4 +69,9 @@
     color: rgb(12, 12, 12);
     font-size: 1em;
     background-color: tomato;
+}
+
+p {
+    text-align: justify;
+    padding: 5px;
 }
