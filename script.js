@@ -5,6 +5,7 @@ const selectShow = document.getElementById('selectTag1');
 function setup() {
     let showsAllMovies = getAllShows();
     selectFetching(showsAllMovies);
+    makePageForEpisodes(showsAllMovies)
 }
 
 function selectFetching(listArr) {
