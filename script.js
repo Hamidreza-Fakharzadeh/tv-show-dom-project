@@ -1,11 +1,22 @@
 const cardCtn = document.getElementById('optionCtn');
 const searchBox = document.getElementById('inputTag');
+const selectShow = document.getElementById('selectTag1');
 
 function setup() {
-    //const allEpisodes = getAllEpisodes();
-    //makePageForEpisodes(allEpisodes);
-    //search(allEpisodes);
-    //selectBox(allEpisodes);
+    let showsAllMovies = getAllShows();
+    selectFetching(showsAllMovies);
+}
+
+function selectFetching(listArr) {
+    selectShow.innerHTML = `<option>All Show</option>`;
+    listArr.forEach(
+        listObj =>
+        (selectShow.innerHTML += `<option value = "${listObj.id}">${listObj.name}</option>`)
+    );
+    selectShow.addEventListener('change', e => {
+        let getSelect = e.target.value;
+        fetchId(getSelect);
+    });
 }
 
 function search(allMovies) {
@@ -24,7 +35,7 @@ function search(allMovies) {
 
 function selectBox(moviesAll) {
     let selectBoxShow = document.getElementById('selectTag2');
-    selectBoxShow.innerHTML = `<option>All shows</option>`;
+    selectBoxShow.innerHTML = `<option>All Episodes</option>`;
     moviesAll.forEach(
         movie =>
         (selectBoxShow.innerHTML += `<option>${cardHeader(movie)}</option>`)
@@ -42,12 +53,14 @@ function removeTag() {}
 function makePageForEpisodes(episodeList) {
     cardCtn.innerHTML = '';
     episodeList.forEach(episode => {
+        let episodeText = episode.summary.replace(/<p>/g, ' ');
+        let episodeText2 = episodeText.replace(/<\/p>/g, ' ');
         cardCtn.innerHTML += `
     <div class ="xl-col-3 lg-col-3 md-col-6 sm-col-12">
       <div class ="cardClass">
        <h1>${cardHeader(episode)}</h1>
        <img src ="${episode.image.medium}"/>
-       <p>${episode.summary}</p>
+       <p>${episodeText2}</p>
        </div>
     </div>`;
     });
@@ -65,14 +78,14 @@ function cardHeader(episode) {
     }
     return 'S' + numSeason + 'E' + numEpisode + ' ' + name;
 }
-fetch('https://api.tvmaze.com/shows/82/episodes')
-    .then(response => response.json())
-    .then(dataJson => {
-        makePageForEpisodes(dataJson);
-        search(dataJson);
-        selectBox(dataJson);
-    });
 
-
-
+function fetchId(idShow) {
+    fetch(`https://api.tvmaze.com/shows/${idShow}/episodes`)
+        .then(response => response.json())
+        .then(dataJson => {
+            makePageForEpisodes(dataJson);
+            search(dataJson);
+            selectBox(dataJson);
+        });
+}
 window.onload = setup();
